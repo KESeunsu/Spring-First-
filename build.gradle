@@ -1,0 +1,31 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.3.RELEASE'//플러그인은 라이브러리에 버전,의존도 알아서 관리해줌
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'spring'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}//dependencies 에 있는 라이브러리를 위의 사이트에서 로드 되도록 설정한것 다른곳에서 로드하도록 바꿀수 있음
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-devtools' //서버 reboot안해도 build-recompile~누르면 view단에 있는 수정내용을 바로바로 확인 가능
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+/*	implementation 'org.springframework.boot:spring-boot-starter-jdbc' 아래의 implementation이 jdbc라이브러리 기능이 중복임
+	spring.jpa.show-sql=true  jpa가 만드는 sql문을 볼수있음
+	spring.jpa.hibernate.ddl-auto=none jpa가 테이블 생성도 해줌 근데 우리는 테이블을 만들었으니깐 none설정으로 함 create하면 자동생성 해줌
+ */
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.h2database:h2'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}//junit version5 테스트 자동 생성함
+}
+
+test {
+	useJUnitPlatform()
+}
